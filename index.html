@@ -67,12 +67,12 @@
       <div class="pws"><div class="pwn">3</div><div><div class="pwt">Strategy and proposal sent</div><div class="pwd">Clear scope, timeline and cost. No surprises.</div></div></div>
     </div>
     <div class="fr">
-      <div class="fg"><label class="fl">First Name</label><input class="fi" placeholder="Your first name"></div>
-      <div class="fg"><label class="fl">Last Name</label><input class="fi" placeholder="Your last name"></div>
+      <div class="fg"><label class="fl">First Name</label><input class="fi" id="popup-fname" placeholder="Your first name"></div>
+      <div class="fg"><label class="fl">Last Name</label><input class="fi" id="popup-lname" placeholder="Your last name"></div>
     </div>
-    <div class="fg"><label class="fl">Email Address</label><input class="fi" type="email" placeholder="email@company.com"></div>
-    <div class="fg"><label class="fl">What Do You Need Built?</label><textarea class="fta" placeholder="Describe your project or idea..."></textarea></div>
-    <button class="btn bp fsub" onclick="closePopup()">Send My Project Brief &#8594;</button>
+    <div class="fg"><label class="fl">Email Address</label><input class="fi" id="popup-email" type="email" placeholder="email@company.com"></div>
+    <div class="fg"><label class="fl">What Do You Need Built?</label><textarea class="fta" id="popup-message" placeholder="Describe your project or idea..."></textarea></div>
+    <button class="btn bp fsub" id="popup-submit" onclick="submitPopupForm(this)">Send My Project Brief &#8594;</button>
   </div>
 </div>
 
@@ -3388,12 +3388,12 @@ x: 264,356,448,540,632,724,824
   <h3 class="pcard-h3">Tell me what you need built. I will respond within 24 hours.</h3>
   <div class="pcard-fields">
     <div class="pcard-row">
-      <input class="pcard-inp" type="text" placeholder="First name">
-      <input class="pcard-inp" type="text" placeholder="Last name">
+      <input class="pcard-inp" id="pcard-fname" type="text" placeholder="First name">
+      <input class="pcard-inp" id="pcard-lname" type="text" placeholder="Last name">
     </div>
-    <input class="pcard-inp" type="email" placeholder="Your email address">
-    <textarea class="pcard-ta" placeholder="Describe your project or the problem you need solved..."></textarea>
-    <button class="pcard-btn" onclick="this.textContent='Message sent. Watch your inbox.'">Send My Project Brief &#8594;</button>
+    <input class="pcard-inp" id="pcard-email" type="email" placeholder="Your email address">
+    <textarea class="pcard-ta" id="pcard-message" placeholder="Describe your project or the problem you need solved..."></textarea>
+    <button class="pcard-btn" id="pcard-submit" onclick="submitPcardForm(this)">Send My Project Brief &#8594;</button>
   </div>
 </div>
   </div>
@@ -5512,7 +5512,7 @@ x: 264,356,448,540,632,724,824
     <div class="sl reveal" style="justify-content:center;margin-bottom:16px">Stay in the Loop</div>
     <h2 class="ech2 reveal d1">Build Updates. No <span class="gt">Marketing Noise.</span></h2>
     <p class="esub reveal d2">I send a monthly note on what I am building, what I am learning and what technology is actually worth your attention. No promotions. No partnerships. Just honest signal.</p>
-    <div class="eform reveal d3"><input class="einp" type="email" placeholder="Your best email address"><button class="btn bp">Subscribe</button></div>
+    <div class="eform reveal d3"><input class="einp" id="ecap-email" type="email" placeholder="Your best email address"><button class="btn bp" id="ecap-submit" onclick="submitSubscribeForm(this)">Subscribe</button></div>
     <p class="reveal d4" style="font-size:12px;color:rgba(255,255,255,.3);margin-top:14px">No spam. Unsubscribe in one click. I write every word myself.</p>
   </div></div>
 </section>
@@ -5541,19 +5541,106 @@ x: 264,356,448,540,632,724,824
     <div class="fb reveal-r d2">
       <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px">Send a Message</div>
       <div style="font-size:14px;color:var(--w60);margin-bottom:28px">Every field matters. The more context you give, the better I can respond.</div>
-      <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" placeholder="Your first name"></div><div class="fg"><label class="fl">Last Name</label><input class="fi" placeholder="Your last name"></div></div>
-      <div class="fr"><div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="email@company.com"></div><div class="fg"><label class="fl">Phone (Optional)</label><input class="fi" placeholder="+1 234 567 8900"></div></div>
-      <div class="fg"><label class="fl">Company or Business Name</label><input class="fi" placeholder="What is your business called?"></div>
-      <div class="fg"><label class="fl">What Do You Need Built?</label><select class="fsl"><option>Select a service...</option><option>Full Stack Web Application</option><option>SaaS Product Development</option><option>AI and Chatbot Integration</option><option>E-commerce Platform</option><option>Analytics Dashboard</option><option>API Development</option><option>Automation and Workflows</option><option>Something Else</option></select></div>
-      <div class="fg"><label class="fl">Tell Me About Your Project</label><textarea class="fta" placeholder="Describe your idea, what it needs to do and who will use it. The more you share, the more useful my response will be."></textarea></div>
-      <div class="fg"><label class="fl">Estimated Budget</label><select class="fsl"><option>Under $1,000</option><option>$1,000 to $3,000</option><option>$3,000 to $5,000</option><option>$5,000 to $10,000</option><option>$10,000 and above</option><option>Not sure yet</option></select></div>
-      <button class="btn bp fsub">Send My Project Brief &#8594;</button>
+      <div class="fr"><div class="fg"><label class="fl">First Name</label><input class="fi" id="contact-fname" placeholder="Your first name"></div><div class="fg"><label class="fl">Last Name</label><input class="fi" id="contact-lname" placeholder="Your last name"></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Email</label><input class="fi" id="contact-email" type="email" placeholder="email@company.com"></div><div class="fg"><label class="fl">Phone (Optional)</label><input class="fi" id="contact-phone" placeholder="+1 234 567 8900"></div></div>
+      <div class="fg"><label class="fl">Company or Business Name</label><input class="fi" id="contact-company" placeholder="What is your business called?"></div>
+      <div class="fg"><label class="fl">What Do You Need Built?</label><select class="fsl" id="contact-service"><option>Select a service...</option><option>Full Stack Web Application</option><option>SaaS Product Development</option><option>AI and Chatbot Integration</option><option>E-commerce Platform</option><option>Analytics Dashboard</option><option>API Development</option><option>Automation and Workflows</option><option>Something Else</option></select></div>
+      <div class="fg"><label class="fl">Tell Me About Your Project</label><textarea class="fta" id="contact-message" placeholder="Describe your idea, what it needs to do and who will use it. The more you share, the more useful my response will be."></textarea></div>
+      <div class="fg"><label class="fl">Estimated Budget</label><select class="fsl" id="contact-budget"><option>Under $1,000</option><option>$1,000 to $3,000</option><option>$3,000 to $5,000</option><option>$5,000 to $10,000</option><option>$10,000 and above</option><option>Not sure yet</option></select></div>
+      <button class="btn bp fsub" id="contact-submit" onclick="submitContactForm(this)">Send My Project Brief &#8594;</button>
     </div>
   </div></div>
 </section>
 </div><!-- /page-home -->
 
+
+<!-- ══════ PAGE: WORK GRID ══════ -->
+<div id="page-work" class="page">
+  <div class="w" style="padding-top:120px;padding-bottom:80px">
+    <div style="margin-bottom:40px">
+      <button onclick="go('home')" style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:8px;margin-bottom:32px">&#8592; Back</button>
+      <div class="sl" style="margin-bottom:16px">Portfolio</div>
+      <h1 style="font-family:Syne,sans-serif;font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-1.5px;margin:0 0 24px;line-height:1.1">Every Build. <span class="gt">Every Result.</span></h1>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px">
+        <button class="wftab on" onclick="filterWork(this,'all')">All Projects</button>
+        <button class="wftab" onclick="filterWork(this,'SaaS')">SaaS Platforms</button>
+        <button class="wftab" onclick="filterWork(this,'E-commerce')">E-commerce</button>
+        <button class="wftab" onclick="filterWork(this,'Analytics')">Analytics</button>
+        <button class="wftab" onclick="filterWork(this,'AI')">AI and Automation</button>
+        <button class="wftab" onclick="filterWork(this,'Healthcare')">Healthcare</button>
+        <button class="wftab" onclick="filterWork(this,'Logistics')">Logistics</button>
+      </div>
+    </div>
+    <div id="work-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px"></div>
+  </div>
+</div>
+
+<!-- ══════ PAGE: CASE STUDY ══════ -->
+<div id="page-cs" class="page">
+  <div class="w" style="padding-top:100px;padding-bottom:80px">
+    <button onclick="go('work')" style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:8px;margin-bottom:40px">&#8592; Back to Work</button>
+    <div id="cs-cat" style="font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px"></div>
+    <h1 id="cs-title" style="font-family:Syne,sans-serif;font-size:clamp(28px,5vw,56px);font-weight:800;letter-spacing:-1.5px;margin:0 0 12px;line-height:1.1"></h1>
+    <div id="cs-loc" style="font-size:14px;color:rgba(255,255,255,.45);margin-bottom:40px"></div>
+    <div id="cs-mockup-big" style="border-radius:16px;overflow:hidden;margin-bottom:40px;border:1px solid rgba(255,255,255,.08)"></div>
+    <div id="cs-results-top" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:48px">
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px">The Problem</div>
+        <p id="cs-problem" style="font-size:16px;line-height:1.85;color:rgba(255,255,255,.65)"></p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px">The Solution</div>
+        <p id="cs-solution" style="font-size:16px;line-height:1.85;color:rgba(255,255,255,.65)"></p>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:16px">Tech Stack</div>
+      <div id="cs-tech" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <div style="margin-top:56px;padding-top:48px;border-top:1px solid rgba(255,255,255,.08);text-align:center">
+      <div class="sl" style="justify-content:center;margin-bottom:16px">Ready to build?</div>
+      <h2 style="font-family:Syne,sans-serif;font-size:clamp(24px,3.5vw,40px);font-weight:800;margin:0 0 24px;letter-spacing:-1px">Your project is next.</h2>
+      <button class="btn bp" onclick="openPopup()">Start a Project &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ PAGE: FILM ══════ -->
+<div id="page-film" class="page" style="min-height:100vh;background:#050a14;position:relative;overflow:hidden">
+  <canvas id="film-bg" style="position:absolute;inset:0;width:100%;height:100%;opacity:.6"></canvas>
+  <div class="w" style="position:relative;z-index:2;padding-top:80px;padding-bottom:80px;min-height:100vh;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px">
+      <button onclick="go('home')" style="font-family:Syne,sans-serif;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45);background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:8px">&#8592; Back</button>
+      <div style="display:flex;align-items:center;gap:16px">
+        <span id="film-timer" style="font-family:Fira Code,monospace;font-size:12px;color:rgba(255,255,255,.3)">0:00</span>
+        <button id="film-play" onclick="FP.playing?FP.pause():FP.play()" style="width:44px;height:44px;border-radius:50%;background:var(--cyan);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <svg id="film-play-ico" width="10" height="12" viewBox="0 0 10 12" fill="#050a14"><polygon points="0,0 10,6 0,12"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="flex:0 0 3px;background:rgba(255,255,255,.08);border-radius:4px;margin-bottom:48px;overflow:hidden">
+      <div id="film-prog-bar" style="height:100%;width:0%;background:var(--cyan);transition:width .1s linear;border-radius:4px"></div>
+    </div>
+    <div id="film-scene" class="fp-active" style="flex:1;display:flex;flex-direction:column;justify-content:center;min-height:400px"></div>
+    <div id="film-dots" style="display:flex;gap:8px;justify-content:center;margin-top:48px;flex-wrap:wrap"></div>
+  </div>
+</div>
+
+<!-- ══════ SUBSCRIBE OVERLAY ══════ -->
+<div id="sub-overlay" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);opacity:0;pointer-events:none;z-index:900;width:min(500px,calc(100vw - 32px));background:#0d1628;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:28px 28px 24px;transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .4s;box-shadow:0 24px 64px rgba(0,0,0,.5)">
+  <button onclick="document.getElementById('sub-overlay').style.transform='translateX(-50%) translateY(120px)';document.getElementById('sub-overlay').style.opacity='0';document.getElementById('sub-overlay').style.pointerEvents='none';try{localStorage.setItem('subDismissed','1');}catch(e){}" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;font-size:18px;color:rgba(255,255,255,.4);line-height:1">&#x2715;</button>
+  <div class="sl" style="margin-bottom:12px">Stay in the Loop</div>
+  <h3 style="font-family:Syne,sans-serif;font-size:20px;font-weight:800;margin:0 0 8px;letter-spacing:-.3px">Build updates. <span class="gt">No noise.</span></h3>
+  <p style="font-size:13.5px;color:rgba(255,255,255,.45);margin:0 0 20px;line-height:1.6">Monthly note on what I am building, what I am learning and what tech actually matters.</p>
+  <div style="display:flex;gap:10px">
+    <input id="sub-overlay-email" type="email" placeholder="Your email address" class="einp" style="flex:1">
+    <button class="btn bp" id="sub-overlay-submit" onclick="submitOverlaySubscribe(this)" style="white-space:nowrap">Subscribe</button>
+  </div>
+</div>
+
 <script src="js/images.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/app.js"></script>
 <script src="js/inline.js"></script>
 </body>
