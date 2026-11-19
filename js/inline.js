@@ -6,7 +6,7 @@
     var pg=document.querySelector('.page.active');
     if(pg&&pg.id==='page-home'&&window.scrollY>window.innerHeight*0.4){
       var el=document.getElementById('sub-overlay');
-      if(el){el.style.transform='translateY(0)';el.style.opacity='1';el.style.pointerEvents='auto';}
+      if(el){el.style.transform='translateX(-50%) translateY(0)';el.style.opacity='1';el.style.pointerEvents='auto';}
       shown=true;
     }
   },{passive:true});
