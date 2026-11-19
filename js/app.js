@@ -14,6 +14,32 @@ var SUPA_URL  = 'https://gfdfogubtzppfmkyicaq.supabase.co';
 var SUPA_KEY  = 'sb_publishable_CCPBYztjqYjJ95UeIuOTgw_pDOi9y1Z';
 var supa;
 
+// ─────────────────────────────────────────────
+// EMAILJS — Inbox Notifications
+// Fill these in after setting up your EmailJS account (emailjs.com)
+// ─────────────────────────────────────────────
+var EJS_PUBLIC_KEY = '6CiNOX82OgqBTsLNv';
+var EJS_SERVICE_ID = 'service_5r80psi';
+var EJS_LEAD_TPL   = 'template_i1ceb2o';
+var EJS_SUB_TPL    = 'template_uvphl8g';
+
+(function initEmailJS(){
+  try {
+    if(window.emailjs && EJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY'){
+      window.emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+      console.log('[Automify] EmailJS ready');
+    }
+  } catch(e){ console.warn('[Automify] EmailJS init failed:', e); }
+})();
+
+function _sendEmailNotification(tplId, params){
+  try {
+    if(!window.emailjs || EJS_PUBLIC_KEY === 'YOUR_EMAILJS_PUBLIC_KEY') return;
+    window.emailjs.send(EJS_SERVICE_ID, tplId, params)
+      .catch(function(e){ console.warn('[Automify] EmailJS send failed:', e); });
+  } catch(e){ console.warn('[Automify] EmailJS error:', e); }
+}
+
 (function initSupabase(){
   try {
     if(window.supabase && window.supabase.createClient){
@@ -309,6 +335,17 @@ async function _insertLead(data){
   if(!supa) throw new Error('Supabase not ready');
   var result = await supa.from('leads').insert([data]);
   if(result.error) throw result.error;
+  // Send email notification to inbox
+  _sendEmailNotification(EJS_LEAD_TPL, {
+    from_name:    ((data.first_name || '') + ' ' + (data.last_name || '')).trim() || 'Unknown',
+    from_email:   data.email || '',
+    source:       data.source || 'website',
+    message:      data.message || '(no message)',
+    phone:        data.phone || '',
+    company:      data.company || '',
+    service:      data.service || '',
+    budget:       data.budget || ''
+  });
   return result;
 }
 
@@ -316,6 +353,10 @@ async function _insertSubscriber(email){
   if(!supa) throw new Error('Supabase not ready');
   var result = await supa.from('subscribers').insert([{email: email}]);
   if(result.error) throw result.error;
+  // Send email notification to inbox
+  _sendEmailNotification(EJS_SUB_TPL, {
+    subscriber_email: email
+  });
   return result;
 }
 
